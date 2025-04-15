@@ -1,0 +1,59 @@
+name: sample-microservices
+
+services:
+  one:
+    build:
+      context: one/one
+    container_name: one-service
+    ports:
+      - "8080:8080"
+    volumes:
+      - maven_repo:/var/maven/.m2
+    networks:
+      - spring_network
+    depends_on:
+      - config
+
+  two:
+    build:
+      context: two/two
+    container_name: two-service
+    ports:
+      - "8081:8081"
+    volumes:
+      - maven_repo:/var/maven/.m2
+    networks:
+      - spring_network
+    depends_on:
+      - config
+
+  three:
+    build:
+      context: three/three
+    container_name: three-service
+    ports:
+      - "8082:8082"
+    volumes:
+      - maven_repo:/var/maven/.m2
+    networks:
+      - spring_network
+    depends_on:
+      - config
+
+  config:
+    build:
+      context: config/config
+    container_name: config-server
+    ports:
+      - "8888:8888"
+    volumes:
+      - maven_repo:/var/maven/.m2
+    networks:
+      - spring_network
+
+volumes:
+  maven_repo:
+
+networks:
+  spring_network:
+    driver: bridge
