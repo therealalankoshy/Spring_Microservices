@@ -8,7 +8,3 @@ spring:
           searchLocations: classpath:config/
 server:
   port: 8888
-#  address: 0.0.0.0
-endpoints:
-  restart:
-    enabled: true
