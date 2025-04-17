@@ -50,6 +50,19 @@ services:
       - maven_repo:/var/maven/.m2
     networks:
       - spring_network
+    depends_on:
+      - discovery
+
+  discovery:
+    build:
+      context: discovery/discovery
+    container_name: discovery
+    ports:
+      - "8761:8761"
+    volumes:
+      - maven_repo:/var/maven/.m2
+    networks:
+      - spring_network
 
 volumes:
   maven_repo:
